@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>imagenes/mapa.png</file>
+        <file>imagenes/adim.ico</file>
+        <file>imagenes/users.ico</file>
+        <file>imagenes/save.ico</file>
+        <file>imagenes/stop-error.ico</file>
+        <file>imagenes/punto.png</file>
+        <file>imagenes/error.ico</file>
+        <file>imagenes/mapa2.png</file>
+    </qresource>
+</RCC>
