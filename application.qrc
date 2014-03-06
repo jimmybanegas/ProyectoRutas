@@ -6,8 +6,9 @@
         <file>imagenes/save.ico</file>
         <file>imagenes/stop-error.ico</file>
         <file>imagenes/punto.png</file>
-        <file>imagenes/error.ico</file>
         <file>imagenes/mapa2.png</file>
         <file>imagenes/logo_vueling.png</file>
+        <file>imagenes/logout.ico</file>
+        <file>imagenes/avion.ico</file>
     </qresource>
 </RCC>

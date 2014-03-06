@@ -52,7 +52,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="application.qrc">
-    <normaloff>:/imagenes/logo_vueling.png</normaloff>:/imagenes/logo_vueling.png</iconset>
+    <normaloff>:/imagenes/avion.ico</normaloff>:/imagenes/avion.ico</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true"/>

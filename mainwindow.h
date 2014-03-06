@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "grafo.h"
 
 
 namespace Ui {
@@ -13,6 +14,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    Grafo miGrafo;
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 

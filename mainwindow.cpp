@@ -19,10 +19,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pushButton_2->setIcon(ButtonIcon2);
     ui->pushButton_2->setIconSize(pixmap2.rect().size());
 
-    QPixmap pixmap3("://imagenes/error.ico");
+    QPixmap pixmap3("://imagenes/logout.ico");
     QIcon ButtonIcon3(pixmap3);
     ui->pushButton_3->setIcon(ButtonIcon3);
     ui->pushButton_3->setIconSize(pixmap3.rect().size());
+
+    //this->miGrafo;
 
 }
 
@@ -35,6 +37,7 @@ void MainWindow::on_pushButton_clicked()
 {
      admin1 ventana;
      ventana.setModal(true);
+     ventana.setGrafo(&miGrafo);
      ventana.exec();
 }
 
@@ -42,6 +45,7 @@ void MainWindow::on_pushButton_2_clicked()
 {
     cliente ventana;
     ventana.setModal(true);
+    ventana.setGrafo(&miGrafo);
     ventana.exec();
 }
 

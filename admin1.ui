@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="application.qrc">
-    <normaloff>:/imagenes/logo_vueling.png</normaloff>:/imagenes/logo_vueling.png</iconset>
+    <normaloff>:/imagenes/avion.ico</normaloff>:/imagenes/avion.ico</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -330,20 +330,9 @@
     <pixmap>:/imagenes/logo_vueling.jpg</pixmap>
    </property>
   </widget>
-  <widget class="QWidget" name="scrollArea" native="true">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>130</y>
-     <width>900</width>
-     <height>431</height>
-    </rect>
-   </property>
-  </widget>
   <zorder>label_8</zorder>
   <zorder>frame</zorder>
   <zorder>frame_2</zorder>
-  <zorder>scrollArea</zorder>
  </widget>
  <resources>
   <include location="application.qrc"/>

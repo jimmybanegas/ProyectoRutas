@@ -7,3 +7,5 @@
 <aeropuerto Codigo="COL" Ciudad="COLOMBIA" x="218" y="361" />
 <aeropuerto Codigo="NYC" Ciudad="NEW YORK" x="115" y="251" />
 <aeropuerto Codigo="HND" Ciudad="HONDURAS" x="182" y="327" />
+<aeropuerto Codigo="CHN" Ciudad="CHINA" x="712" y="262" />
+<aeropuerto Codigo="MRC" Ciudad="MARRUECOS" x="411" y="271" />

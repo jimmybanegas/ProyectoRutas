@@ -6,3 +6,7 @@ Aeropuerto::Aeropuerto(QString codigo, QString ciudad)
     this->ciudad = ciudad;
 }
 
+Aeropuerto::Aeropuerto()
+{
+
+}

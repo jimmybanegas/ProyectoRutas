@@ -11,6 +11,8 @@
 #include <QtCore>
 #include <QMessageBox>
 #include "TinyXml/tinyxml.h"
+#include "miwidget.h"
+#include "grafo.h"
 
 using namespace std;
 
@@ -24,8 +26,12 @@ class admin1 : public QDialog
 
 public:
     TiXmlDocument doc;
+    TiXmlDocument doc2;
+    Grafo *miGrafo;
     bool hacerPunto;
+    miWidget *a ;
     explicit admin1(QWidget *parent = 0);
+    void setGrafo(Grafo *miGrafo);
     ~admin1();
 
 private slots:
@@ -44,12 +50,14 @@ private:
     void escribirXml(int x, int y, QString codigo, QString ciudad);
     void leerXml();
 
+    void escribirXml2(QString ini, QString fin, double costo);
+    void leerXml2();
+
     void dibujarPunto(int x, int y);
 
     bool checkPunto(int x1, int y1);
 
     int x,y;
-    void paintEvent(QPaintEvent *);
 
     Ui::admin1 *ui;
 };

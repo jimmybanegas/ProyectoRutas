@@ -22,7 +22,9 @@ SOURCES += main.cpp\
     TinyXml/tinystr.cpp \
     TinyXml/tinyxml.cpp \
     TinyXml/tinyxmlerror.cpp \
-    TinyXml/tinyxmlparser.cpp
+    TinyXml/tinyxmlparser.cpp \
+    miwidget.cpp \
+    grafo.cpp
 
 HEADERS  += mainwindow.h \
     admin1.h \
@@ -30,7 +32,9 @@ HEADERS  += mainwindow.h \
     aeropuerto.h \
     conexion.h \
     TinyXml/tinystr.h \
-    TinyXml/tinyxml.h
+    TinyXml/tinyxml.h \
+    miwidget.h \
+    grafo.h
 
 FORMS    += mainwindow.ui \
     admin1.ui \

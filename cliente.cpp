@@ -6,8 +6,18 @@ cliente::cliente(QWidget *parent) :
     ui(new Ui::cliente)
 {
     ui->setupUi(this);
+
+    this->a = new miWidget(this);
+    a->setGeometry(20,130,900,431);
+    a->show();
+
     doc=TiXmlDocument("Aeropuertos.xml");
+    doc2=TiXmlDocument("Conexiones.xml");
+
     leerXml();
+    leerXml2();
+
+  //  miGrafo->mostrar_grafo();
 
 }
 
@@ -32,9 +42,34 @@ void cliente::leerXml()
         ui->comboBox->addItem(ciudad);
         ui->comboBox_2->addItem(ciudad);
 
+      //  miGrafo->insertar_aeropuerto(codigo,ciudad,x,y);
+
         patr=patr->NextSibling();
 
     }
+}
+
+void cliente::leerXml2()
+{
+   doc2.LoadFile();
+   TiXmlNode *patr=doc2.FirstChild();
+
+    while(patr){
+        QString inicio = QString::fromUtf8(patr->ToElement()->Attribute("Inicio"));
+        QString destino = QString::fromUtf8(patr->ToElement()->Attribute("Destino"));
+        double costo = atof(patr->ToElement()->Attribute("Costo"));
+
+        //Cargar al grafo los aeropuertos existentes
+      //  miGrafo->insertar_conexion(inicio,destino,costo);
+
+        patr=patr->NextSibling();
+
+    }
+}
+
+void cliente::setGrafo(Grafo *miGrafo)
+{
+    this->miGrafo = miGrafo;
 }
 
 void cliente::dibujarPunto(int x, int y)
@@ -47,3 +82,4 @@ void cliente::dibujarPunto(int x, int y)
     imagen->raise();
     imagen->show();
 }
+

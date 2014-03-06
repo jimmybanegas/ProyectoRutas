@@ -6,16 +6,11 @@ admin1::admin1(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::admin1)
 {
-
     ui->setupUi(this);
 
-  /*  QPainter painter(this);
-
-    painter.drawLine(20,200,100,100);
-*/
-
-
-    ui->scrollArea->setStyleSheet("background-image: url(://imagenes/mapa2.png)");
+    this->a = new miWidget(this);
+    a->setGeometry(20,130,900,431);
+    a->show();
 
     QPixmap pixmap("://imagenes/save.ico");
     QIcon ButtonIcon(pixmap);
@@ -40,8 +35,12 @@ admin1::admin1(QWidget *parent) :
     this->hacerPunto=true;
 
     doc=TiXmlDocument("Aeropuertos.xml");
-    leerXml();
+    doc2=TiXmlDocument("Conexiones.xml");
 
+    leerXml();
+    leerXml2();
+
+    miGrafo->mostrar_grafo();
 }
 
 admin1::~admin1()
@@ -60,8 +59,12 @@ void admin1::mousePressEvent(QMouseEvent *ev)
     if(checkPunto(x-5,y-10))
     {
         ui->frame_2->setEnabled(true);
+
+        Aeropuerto *actual = miGrafo->recuperar(ev->x(),ev->y());
+        if(actual!=NULL)
+          cout<<actual->ciudad.toStdString()<<endl;
     }
-    else if(hacerPunto && x>=20 && x<=920 && y>=130 && y<=561){
+    else if(hacerPunto && x>=35 && x<=900 && y>=140 && y<=551){
           this->x=ev->x()-5;
           this->y=ev->y()-10;
 
@@ -102,6 +105,42 @@ void admin1::leerXml()
         ui->comboBox->addItem(ciudad);
         ui->comboBox_2->addItem(ciudad);
 
+
+        //Cargar al grafo los aeropuertos existentes
+        miGrafo->insertar_aeropuerto(codigo,ciudad,x,y);
+
+        patr=patr->NextSibling();
+
+    }
+}
+
+void admin1::escribirXml2(QString inicio, QString destino, double costo)
+{
+       doc2.LoadFile();
+
+       TiXmlElement *element=new TiXmlElement("conexion");
+       element->SetAttribute("Inicio",inicio.toStdString().c_str());
+       element->SetAttribute("Destino",destino.toStdString().c_str());
+       element->SetDoubleAttribute("Costo",costo);
+
+       doc2.LinkEndChild(element);
+       doc2.SaveFile();
+}
+
+void admin1::leerXml2()
+{
+   doc2.LoadFile();
+   TiXmlNode *patr=doc2.FirstChild();
+
+    while(patr){
+        QString inicio = QString::fromUtf8(patr->ToElement()->Attribute("Inicio"));
+        QString destino = QString::fromUtf8(patr->ToElement()->Attribute("Destino"));
+        double costo = atof(patr->ToElement()->Attribute("Costo"));
+
+
+        //Cargar al grafo los aeropuertos existentes
+        miGrafo->insertar_conexion(inicio,destino,costo);
+
         patr=patr->NextSibling();
 
     }
@@ -127,7 +166,7 @@ bool admin1::checkPunto(int x1, int y1)
          int x = atoi(patr->ToElement()->Attribute("x"));
          int y =  atoi(patr->ToElement()->Attribute("y"));
 
-         if((((x1>= x)&& (x1<= x+10)) || ((x1+10 >= x)&& (x1+10 <= x+10))) &&
+         if((((x1>= x)&& (x1<= x+20)) || ((x1+20 >= x)&& (x1+20 <= x+20))) &&
                 (((y1 >= y) && (y1 <= y+20)) || ((y1+20 >= y) && (y1+20 <= y+20))))
          return true;
 
@@ -138,14 +177,9 @@ bool admin1::checkPunto(int x1, int y1)
      return false;
 }
 
-void admin1::paintEvent(QPaintEvent *)
+void admin1::setGrafo(Grafo *miGrafo)
 {
-    QPainter *paint = new QPainter(ui->scrollArea);
-    paint->begin (this);
-   paint->drawLine (QPointF (20.0, 2.0), QPointF (800, 800));
-   paint->end ();
-
-    //painter.drawLine(20,200,100,100);
+    this->miGrafo = miGrafo;
 }
 
 void admin1::on_pushButton_2_clicked()
@@ -200,10 +234,12 @@ void admin1::on_pushButton_3_clicked()
 {
     if(ui->lineEdit_3->text().toStdString() != "")
     {
+        double costo = ui->lineEdit_3->text().toDouble();
 
-        QString ciudad = ui->lineEdit_2->text();
+        QString inicio = ui->comboBox->itemText(ui->comboBox->currentIndex());
+        QString destino = ui->comboBox_2->itemText(ui->comboBox_2->currentIndex());
 
-        //this->escribirXml(x,y,codigo,ciudad);
+        this->escribirXml2(inicio,destino,costo);
 
         QMessageBox msgBox;
         msgBox.setText("La conexión ha sido guardada");

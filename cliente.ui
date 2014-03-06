@@ -15,21 +15,8 @@
   </property>
   <property name="windowIcon">
    <iconset resource="application.qrc">
-    <normaloff>:/imagenes/logo_vueling.png</normaloff>:/imagenes/logo_vueling.png</iconset>
+    <normaloff>:/imagenes/avion.ico</normaloff>:/imagenes/avion.ico</iconset>
   </property>
-  <widget class="QWidget" name="frame_2" native="true">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>130</y>
-     <width>900</width>
-     <height>431</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-image: url(:/imagenes/mapa2.png);</string>
-   </property>
-  </widget>
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
