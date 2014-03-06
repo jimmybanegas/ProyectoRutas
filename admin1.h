@@ -6,8 +6,9 @@
 #include <QEvent>
 #include <QDebug>
 #include <iostream>
-#include "qpainter.h"
-#include <QtXml>
+#include <QPainter>
+#include <QtGui>
+#include <QtCore>
 #include <QMessageBox>
 #include "TinyXml/tinyxml.h"
 
@@ -28,7 +29,6 @@ public:
     ~admin1();
 
 private slots:
-    void on_admin1_accepted();
 
     void on_pushButton_2_clicked();
 
@@ -36,17 +36,20 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_pushButton_3_clicked();
+
 private:
-    void mouseMoveEvent(QMouseEvent *ev);
     void mousePressEvent(QMouseEvent *ev);
-    void leaveEvent(QMouseEvent *ev);
 
     void escribirXml(int x, int y, QString codigo, QString ciudad);
     void leerXml();
 
-    bool checkPunto(int x, int y);
+    void dibujarPunto(int x, int y);
+
+    bool checkPunto(int x1, int y1);
 
     int x,y;
+    void paintEvent(QPaintEvent *);
 
     Ui::admin1 *ui;
 };

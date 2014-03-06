@@ -8,5 +8,6 @@
         <file>imagenes/punto.png</file>
         <file>imagenes/error.ico</file>
         <file>imagenes/mapa2.png</file>
+        <file>imagenes/logo_vueling.png</file>
     </qresource>
 </RCC>

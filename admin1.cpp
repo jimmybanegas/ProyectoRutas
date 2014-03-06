@@ -9,12 +9,13 @@ admin1::admin1(QWidget *parent) :
 
     ui->setupUi(this);
 
-    QLabel *imageLabel = new QLabel(this);
-    QImage image("://imagenes/mapa.png");
-    imageLabel->setPixmap(QPixmap::fromImage(image));
+  /*  QPainter painter(this);
 
-    ui->scrollArea->setBackgroundRole(QPalette::Dark);
-    ui->scrollArea->setWidget(imageLabel);
+    painter.drawLine(20,200,100,100);
+*/
+
+
+    ui->scrollArea->setStyleSheet("background-image: url(://imagenes/mapa2.png)");
 
     QPixmap pixmap("://imagenes/save.ico");
     QIcon ButtonIcon(pixmap);
@@ -48,31 +49,23 @@ admin1::~admin1()
     delete ui;
 }
 
-void admin1::on_admin1_accepted()
-{
-
-}
-
-void admin1::mouseMoveEvent(QMouseEvent *ev)
-{
-    //
-}
-
 void admin1::mousePressEvent(QMouseEvent *ev)
 {     
-     if(hacerPunto){
-          x = ev->x();
-          y = ev->y();
+    x = ev->x();
+    y = ev->y();
 
-          QPixmap punto=QPixmap(":/imagenes/punto.png");
-          QLabel *imagen=new QLabel(this) ;
-          imagen->setPixmap(punto);
-          imagen->setScaledContents(true);
+    if(ui->frame_2->isEnabled())
+        return;
+
+    if(checkPunto(x-5,y-10))
+    {
+        ui->frame_2->setEnabled(true);
+    }
+    else if(hacerPunto && x>=20 && x<=920 && y>=130 && y<=561){
           this->x=ev->x()-5;
           this->y=ev->y()-10;
-          imagen->setGeometry(x,y,10,10);
-          imagen->raise();
-          imagen->show();
+
+          dibujarPunto(x,y);
 
           ui->frame->setEnabled(true);
           hacerPunto = false;
@@ -96,34 +89,63 @@ void admin1::escribirXml(int x, int y, QString codigo, QString ciudad)
 void admin1::leerXml()
 {
    doc.LoadFile();
-
    TiXmlNode *patr=doc.FirstChild();
 
-    while(patr){
-        int x,y;
-        QString codigo, nombre;
+    while(patr){        
+        QString codigo = QString::fromUtf8(patr->ToElement()->Attribute("Codigo"));
+        QString ciudad = QString::fromUtf8(patr->ToElement()->Attribute("Ciudad"));
+        int x = atoi(patr->ToElement()->Attribute("x"));
+        int y =  atoi(patr->ToElement()->Attribute("y"));
 
-       // TiXmlAttribute *atrX = patr->ToElement()->FirstAttribute();
-       // TiXmlAttribute *atr = patr->ToElement()->Attribute("Codigo");
-      //  TiXmlAttribute *atrY =patr->ToElement()->LastAttribute();
+        dibujarPunto(x ,y);
 
-       // atrX->Next()->QueryIntValue(&x);
-       // cout<<x<<endl;
+        ui->comboBox->addItem(ciudad);
+        ui->comboBox_2->addItem(ciudad);
 
-    cout<<  patr->ToElement()->Attribute("Codigo")<<endl;
-    cout<<  patr->ToElement()->Attribute("Ciudad")<<endl;
-    cout<<  patr->ToElement()->Attribute("x")<<endl;
-    cout<<  patr->ToElement()->Attribute("y")<<endl;
+        patr=patr->NextSibling();
 
-       // atrY->QueryIntValue(&y);
-       //  cout<<y<<endl;
-       patr=patr->NextSibling();
-      }
+    }
 }
 
-bool admin1::checkPunto(int x, int y)
+void admin1::dibujarPunto(int x, int y)
 {
+    QPixmap punto=QPixmap(":/imagenes/punto.png");
+    QLabel *imagen=new QLabel(this) ;
+    imagen->setPixmap(punto);
+    imagen->setScaledContents(true);
+    imagen->setGeometry(x,y,10,10);
+    imagen->raise();
+    imagen->show();
+}
 
+bool admin1::checkPunto(int x1, int y1)
+{
+    doc.LoadFile();
+    TiXmlNode *patr=doc.FirstChild();
+
+     while(patr){
+         int x = atoi(patr->ToElement()->Attribute("x"));
+         int y =  atoi(patr->ToElement()->Attribute("y"));
+
+         if((((x1>= x)&& (x1<= x+10)) || ((x1+10 >= x)&& (x1+10 <= x+10))) &&
+                (((y1 >= y) && (y1 <= y+20)) || ((y1+20 >= y) && (y1+20 <= y+20))))
+         return true;
+
+         patr=patr->NextSibling();
+
+     }
+
+     return false;
+}
+
+void admin1::paintEvent(QPaintEvent *)
+{
+    QPainter *paint = new QPainter(ui->scrollArea);
+    paint->begin (this);
+   paint->drawLine (QPointF (20.0, 2.0), QPointF (800, 800));
+   paint->end ();
+
+    //painter.drawLine(20,200,100,100);
 }
 
 void admin1::on_pushButton_2_clicked()
@@ -157,6 +179,42 @@ void admin1::on_pushButton_clicked()
                ui->lineEdit->setText("");
                ui->lineEdit_2->setText("");
                ui->frame->setEnabled(false);
+               break;
+           case QMessageBox::No:
+               this->close();
+               break;
+           default:
+               // should never be reached
+               break;
+         }
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Complete los datos para guardar");
+        msgBox.exec();
+    }
+}
+
+void admin1::on_pushButton_3_clicked()
+{
+    if(ui->lineEdit_3->text().toStdString() != "")
+    {
+
+        QString ciudad = ui->lineEdit_2->text();
+
+        //this->escribirXml(x,y,codigo,ciudad);
+
+        QMessageBox msgBox;
+        msgBox.setText("La conexión ha sido guardada");
+        msgBox.setInformativeText("¿Desea agregar una nueva?");
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        int ret = msgBox.exec();
+
+        switch (ret) {
+           case QMessageBox::Yes:
+               ui->lineEdit_3->setText("");
+               hacerPunto = false;
                break;
            case QMessageBox::No:
                this->close();

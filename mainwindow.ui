@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>311</width>
-    <height>328</height>
+    <height>399</height>
    </rect>
   </property>
   <property name="palette">
@@ -50,6 +50,10 @@
   <property name="windowTitle">
    <string>Sistema de Control de Rutas</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="application.qrc">
+    <normaloff>:/imagenes/logo_vueling.png</normaloff>:/imagenes/logo_vueling.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true"/>
   </property>
@@ -58,7 +62,7 @@
     <property name="geometry">
      <rect>
       <x>18</x>
-      <y>40</y>
+      <y>100</y>
       <width>271</width>
       <height>71</height>
      </rect>
@@ -88,7 +92,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>130</y>
+      <y>190</y>
       <width>271</width>
       <height>71</height>
      </rect>
@@ -124,7 +128,7 @@
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>230</y>
+      <y>290</y>
       <width>101</width>
       <height>51</height>
      </rect>
@@ -140,6 +144,26 @@
      <string>Salir</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>-50</y>
+      <width>251</width>
+      <height>221</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/imagenes/logo_vueling.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <zorder>label</zorder>
+   <zorder>pushButton</zorder>
+   <zorder>pushButton_2</zorder>
+   <zorder>pushButton_3</zorder>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -168,6 +192,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="application.qrc"/>
+ </resources>
  <connections/>
 </ui>

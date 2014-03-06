@@ -6,47 +6,34 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>932</width>
-    <height>505</height>
+    <width>1200</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Diseño de Rutas</string>
   </property>
-  <widget class="QScrollArea" name="scrollArea">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>30</y>
-     <width>661</width>
-     <height>451</height>
-    </rect>
-   </property>
-   <property name="widgetResizable">
-    <bool>true</bool>
-   </property>
-   <widget class="QWidget" name="scrollAreaWidgetContents">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>659</width>
-      <height>449</height>
-     </rect>
-    </property>
-   </widget>
-  </widget>
+  <property name="windowIcon">
+   <iconset resource="application.qrc">
+    <normaloff>:/imagenes/logo_vueling.png</normaloff>:/imagenes/logo_vueling.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QFrame" name="frame">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>700</x>
-     <y>30</y>
+     <x>950</x>
+     <y>100</y>
      <width>221</width>
      <height>221</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="frameShape">
     <enum>QFrame::Box</enum>
@@ -169,11 +156,14 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>700</x>
-     <y>260</y>
+     <x>950</x>
+     <y>340</y>
      <width>221</width>
      <height>221</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="frameShape">
     <enum>QFrame::Box</enum>
@@ -321,7 +311,42 @@
     </property>
    </widget>
   </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>-100</y>
+     <width>671</width>
+     <height>331</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">image: url(:/imagenes/logo_vueling.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>:/imagenes/logo_vueling.jpg</pixmap>
+   </property>
+  </widget>
+  <widget class="QWidget" name="scrollArea" native="true">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>130</y>
+     <width>900</width>
+     <height>431</height>
+    </rect>
+   </property>
+  </widget>
+  <zorder>label_8</zorder>
+  <zorder>frame</zorder>
+  <zorder>frame_2</zorder>
+  <zorder>scrollArea</zorder>
  </widget>
- <resources/>
+ <resources>
+  <include location="application.qrc"/>
+ </resources>
  <connections/>
 </ui>
