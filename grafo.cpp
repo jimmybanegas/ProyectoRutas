@@ -41,20 +41,18 @@ void Grafo::agrega_conexion(Aeropuerto *aux, Aeropuerto *aux2, Conexion *nuevo)
       if(aux->ady==NULL)
       {   aux->ady=nuevo;
           nuevo->destino=aux2;
-          cout<<"PRIMERA Conexion....!"<<endl;
       }
       else
       {   q=aux->ady;
           while(q->sgte!=NULL)
               q=q->sgte;
           nuevo->destino=aux2;
-          cout<<"Conexion AGREGADA...!!!!"<<endl;
+          q->sgte=nuevo;
       }
 }
 
 void Grafo::insertar_conexion(QString ini, QString fin, double costo)
 {
-       // char ini, fin;
         Conexion *nuevo=new Conexion();
         nuevo->costo = costo;
 
@@ -62,7 +60,7 @@ void Grafo::insertar_conexion(QString ini, QString fin, double costo)
 
         if(p==NULL)
          {
-             cout<<"GRAFO VACIO...!!!!";
+             //"GRAFO VACIO...!!!!";
              return;
          }
         nuevo->sgte=NULL;
@@ -198,15 +196,18 @@ void Grafo::mostrar_grafo()
         Conexion *ar;
         ptr=p;
         cout<<"AEROPUERTO|LISTA DE ADYACENCIA\n";
-
         while(ptr!=NULL)
-        {   cout<<"   "<<ptr->ciudad.toStdString()<<"|";
+        {
+            cout<<"   "<<ptr->ciudad.toStdString()<<"|";
             if(ptr->ady!=NULL)
             {
                 ar=ptr->ady;
+
                 while(ar!=NULL)
-                {   cout<<" "<<ar->destino->ciudad.toStdString();
+                {
+                    cout<<" "<<ar->destino->ciudad.toStdString();
                     ar=ar->sgte;
+
                 }
 
             }
@@ -218,11 +219,8 @@ void Grafo::mostrar_grafo()
 void Grafo::mostrar_conexiones(QString ciudad)
 {
         Aeropuerto *aux;
-        Conexion *ar;
-       // QString var;
-       /* cout<<"MOSTRAR CONEXIONES DE AEROPUERTO\n";
-        cout<<"INGRESE AEROPUERTO:";
-        cin>>var;*/
+        Conexion *ar;      
+        cout<<"MOSTRAR CONEXIONES DE AEROPUERTO\n";
         aux=p;
         while(aux!=NULL)
         {
@@ -257,10 +255,11 @@ Aeropuerto * Grafo::recuperar(int x, int y)
     Aeropuerto *ptr;
     ptr=p;
 
+    if(p==NULL)
+    cout<<"NULO"<<endl;
+
     while(ptr!=NULL)
     {
-        cout<<x<<" "<<ptr->x<<endl;
-        cout<<x<<" "<<ptr->x<<endl;
         if((((x>= ptr->x)&& (x<= ptr->x+20)) || ((x+20 >= ptr->x)&& (x+20 <= ptr->x+20))) &&
                (((y >= ptr->y) && (y <= ptr->y+20)) || ((y+20 >= ptr->y) && (y+20 <= ptr->y+20))))
             return ptr;

@@ -35,17 +35,18 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-     admin1 ventana;
-     ventana.setModal(true);
-     ventana.setGrafo(&miGrafo);
-     ventana.exec();
+     admin1 ventana1;
+     ventana1.setModal(true);
+     //ventana.miGrafo
+     //ventana.setGrafo(&miGrafo);
+     ventana1.exec();
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
     cliente ventana;
     ventana.setModal(true);
-    ventana.setGrafo(&miGrafo);
+    //ventana.setGrafo(&miGrafo);
     ventana.exec();
 }
 

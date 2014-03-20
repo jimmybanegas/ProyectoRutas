@@ -30,6 +30,7 @@ public:
     Grafo *miGrafo;
     bool hacerPunto;
     miWidget *a ;
+
     explicit admin1(QWidget *parent = 0);
     void setGrafo(Grafo *miGrafo);
     ~admin1();

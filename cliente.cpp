@@ -17,7 +17,9 @@ cliente::cliente(QWidget *parent) :
     leerXml();
     leerXml2();
 
-  //  miGrafo->mostrar_grafo();
+    cout<<this->miGrafo.p->ciudad.toStdString();
+
+    miGrafo.mostrar_grafo();
 
 }
 
@@ -42,7 +44,7 @@ void cliente::leerXml()
         ui->comboBox->addItem(ciudad);
         ui->comboBox_2->addItem(ciudad);
 
-      //  miGrafo->insertar_aeropuerto(codigo,ciudad,x,y);
+        miGrafo.insertar_aeropuerto(codigo,ciudad,x,y);
 
         patr=patr->NextSibling();
 
@@ -60,14 +62,13 @@ void cliente::leerXml2()
         double costo = atof(patr->ToElement()->Attribute("Costo"));
 
         //Cargar al grafo los aeropuertos existentes
-      //  miGrafo->insertar_conexion(inicio,destino,costo);
+        miGrafo.insertar_conexion(inicio,destino,costo);
 
         patr=patr->NextSibling();
-
     }
 }
 
-void cliente::setGrafo(Grafo *miGrafo)
+void cliente::setGrafo(Grafo miGrafo)
 {
     this->miGrafo = miGrafo;
 }

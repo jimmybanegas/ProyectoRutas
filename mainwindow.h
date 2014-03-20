@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 #include "grafo.h"
-
+#include "admin1.h"
+#include "cliente.h"
 
 namespace Ui {
 class MainWindow;
@@ -14,7 +15,8 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    Grafo miGrafo;
+   // admin1 ventana1;
+    //cliente ventana2;
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 

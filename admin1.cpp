@@ -41,6 +41,7 @@ admin1::admin1(QWidget *parent) :
     leerXml2();
 
     miGrafo->mostrar_grafo();
+   // miGrafo->mostrar_conexiones("HONDURAS");
 }
 
 admin1::~admin1()
@@ -61,8 +62,8 @@ void admin1::mousePressEvent(QMouseEvent *ev)
         ui->frame_2->setEnabled(true);
 
         Aeropuerto *actual = miGrafo->recuperar(ev->x(),ev->y());
-        if(actual!=NULL)
-          cout<<actual->ciudad.toStdString()<<endl;
+        ui->comboBox->addItem(actual->ciudad);
+
     }
     else if(hacerPunto && x>=35 && x<=900 && y>=140 && y<=551){
           this->x=ev->x()-5;
@@ -102,9 +103,7 @@ void admin1::leerXml()
 
         dibujarPunto(x ,y);
 
-        ui->comboBox->addItem(ciudad);
         ui->comboBox_2->addItem(ciudad);
-
 
         //Cargar al grafo los aeropuertos existentes
         miGrafo->insertar_aeropuerto(codigo,ciudad,x,y);
@@ -136,7 +135,6 @@ void admin1::leerXml2()
         QString inicio = QString::fromUtf8(patr->ToElement()->Attribute("Inicio"));
         QString destino = QString::fromUtf8(patr->ToElement()->Attribute("Destino"));
         double costo = atof(patr->ToElement()->Attribute("Costo"));
-
 
         //Cargar al grafo los aeropuertos existentes
         miGrafo->insertar_conexion(inicio,destino,costo);
@@ -251,6 +249,11 @@ void admin1::on_pushButton_3_clicked()
            case QMessageBox::Yes:
                ui->lineEdit_3->setText("");
                hacerPunto = false;
+               ui->comboBox->clear();
+               ui->frame_2->setEnabled(false);
+               leerXml();
+               leerXml2();
+               this->update();
                break;
            case QMessageBox::No:
                this->close();
