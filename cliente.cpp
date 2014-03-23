@@ -21,6 +21,7 @@ cliente::cliente(QWidget *parent) :
 
     miGrafo.mostrar_grafo();
 
+    miGrafo.llenarMatriz();
 }
 
 cliente::~cliente()
