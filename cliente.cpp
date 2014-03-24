@@ -85,3 +85,13 @@ void cliente::dibujarPunto(int x, int y)
     imagen->show();
 }
 
+
+void cliente::on_pushButton_clicked()
+{
+
+}
+
+void cliente::on_comboBox_activated(int index)
+{
+
+}

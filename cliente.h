@@ -34,6 +34,11 @@ public:
     void setGrafo(Grafo miGrafo);
     ~cliente();
 
+private slots:
+    void on_pushButton_clicked();
+
+    void on_comboBox_activated(int index);
+
 private:
     void leerXml();
     void leerXml2();

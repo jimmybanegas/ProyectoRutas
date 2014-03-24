@@ -104,93 +104,12 @@ void Grafo::vaciar_conexiones(Aeropuerto *aux)
 
 void Grafo::eliminar_aeropuerto()
 {
-      /* char var;
-        Aeropuerto *aux,*ant;
-        aux=p;
-        cout<<"ELIMINAR UN Aeropuerto\n";
-        if(p==NULL)
-         {
-             cout<<"GRAFO VACIO...!!!!";
-             return;
-         }
-        cout<<"INGRESE NOMBRE DE VARIABLE:";
-        cin>>var;
 
-        while(aux!=NULL)
-        {
-            if(aux->nombre==var)
-            {
-                if(aux->ady!=NULL)
-                    vaciar_conexions(aux);
-
-                if(aux==p)
-                {
-
-                        p=p->sgte;
-                        delete(aux);
-                        cout<<"Aeropuerto ELIMINADO...!!!!";
-                        return;
-                }
-                else
-                {
-                    ant->sgte = aux->sgte;
-                    delete(aux);
-                    cout<<"Aeropuerto ELIMINADO...!!!!";
-                    return;
-                }
-            }
-            else
-            {
-                ant=aux;
-                aux=aux->sgte;
-             }
-        }*/
 }
 
 void Grafo::eliminar_conexion()
 {
-       /* char ini, fin;
-        Aeropuerto *aux, *aux2;
-        Conexion *q,*r;
-        cout<<"\n ELIMINAR Conexion\n";
-        cout<<"INGRESE Aeropuerto DE INICIO:";
-        cin>>ini;
-        cout<<"INGRESE Aeropuerto FINAL:";
-        cin>>fin;
-        aux=p;
-        aux2=p;
-        while(aux2!=NULL)
-        {
-            if(aux2->nombre==fin)
-            {
-                break;
-            }
-            else
-            aux2=aux2->sgte;
-        }
-         while(aux!=NULL)
-        {
-            if(aux->nombre==ini)
-            {
-                q=aux->ady;
-                while(q!=NULL)
-                {
-                    if(q->destino==aux2)
-                    {
-                        if(q==aux->ady)
-                            aux->ady=aux->ady->sgte;
-                        else
-                            r->sgte=q->sgte;
-                        delete(q);
-                        cout<<"Conexion  "<<aux->nombre<<"----->"<<aux2->nombre<<" ELIMINADA.....!!!!";
-                        return;
-                    }
-                }
-                r=q;
-                q=q->sgte;
-            }
-            aux = aux->sgte;
-         }*/
+
 }
 
 void Grafo::mostrar_grafo()
@@ -283,17 +202,14 @@ void Grafo::llenarMatriz()
     int x = 0;
 
     ptr=p;
-    cout<<"AEROPUERTO|LISTA DE ADYACENCIA\n";
     while(ptr!=NULL)
     {
-        //cout<<"   "<<ptr->ciudad.toStdString()<<"|";
         int y = 0;
         if(ptr->ady!=NULL)
         {
             ar=ptr->ady;
             while(ar!=NULL)
             {
-              //  cout<<" "<<ar->destino->ciudad.toStdString();
                 matriz[x][y] = ar->costo;
                 y++;
                 ar=ar->sgte;
@@ -302,7 +218,7 @@ void Grafo::llenarMatriz()
 
         }
         ptr=ptr->sgte;
-        //cout<<endl;
+
         x++;
     }
 
@@ -317,6 +233,7 @@ void Grafo::llenarMatriz()
     }
 
 }
+
 
 Aeropuerto * Grafo::recuperar(int x, int y)
 {
@@ -335,4 +252,82 @@ Aeropuerto * Grafo::recuperar(int x, int y)
         ptr=ptr->sgte;
     }
     return ptr;
+}
+
+int * Grafo::recuperar2(QString ciudad)
+{
+    Aeropuerto *aux;
+    aux=p;
+    int cont = 0;
+    while(aux!=NULL)
+    {
+        if(aux->ciudad==ciudad)
+        {
+            return cont;
+        }
+        else
+        {
+            aux=aux->sgte;
+            cont++;
+        }
+
+    }
+    return cont;
+}
+
+void Grafo::dtra(int Origen)
+{
+
+    int Aux[cont], VertInc[cont], Ver1, Ver2, Ind1, Ind2, Menor, Band,
+    Origen;
+    /* El arreglo VertInc se utiliza para guardar los vértices elegidos
+    ➥por ser los de la distancia mínima. El arreglo Aux es un arreglo
+    ➥lógico que indica si el nodo de la posición i ya fue incluido en
+    ➥VertInc y de esta manera evitar ciclos. */
+    for (Ind1= 0; Ind1 < cont; Ind1++)
+    {
+     Aux[Ind1]= 0;
+     VertInc[Ind1]= 0;
+    }
+    cout<<"\n\n Ingrese vértice origen: ";
+    cin>>Origen;
+    Aux[Origen – 1]= 1;
+    /* El arreglo donde se guardan las distancias mínimas del Origen a
+    ➥los demás vértices se inicializa con los valores de la matriz de
+    ➥adyacencia. */
+    for (Ind1= 0; Ind1 < cont; Ind1++)
+    DistMin[Ind1]= MatAdy[Origen][Ind1];
+    for (Ind1= 0; Ind1<cont; Ind1++)
+    {
+    /* Se busca el vértice Ver1 en (Vertices - VertInc) tal que
+    ➥DistMin[Ver1] sea el mínimo valor. Se usa el 999 como valor
+    ➥inicial ya que es el elegido para indicar que no existe camino
+    ➥entre dos vértices. */
+    Menor= 999;
+    for (Ind2= 1; Ind2 < cont; Ind2++)
+    if (DistMin[Ind2] < Menor && !Aux[Ind2])
+    {
+    Ver1= Ind2;
+    Menor= DistMin[Ind2];
+    }
+    /* Se incluye Ver1 a VertInc y se actualiza el arreglo Aux. */
+    VertInc[Ind1]= Ver1;
+    Aux[Ver1]= 1;
+    /* Se busca la distancia mínima para cada vértice Ver2 en(Vertices - VertInc). */
+    Ver2= 1;
+    while (Ver2 < cont)
+    {
+    Band=0;
+    Ind2= 1;
+    while (Ind2 < cont && !Band)
+    if (VertInc[Ind2] == Ver2)
+    Band= 1;
+    else
+    Ind2++;
+    if (!Band)
+    DistMin[Ver2]=  Minimo (DistMin[Ver2],DistMin[Ver1] + MatAdy[Ver1][Ver2]);
+    Ver2++;
+    }
+    }
+
 }

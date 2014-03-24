@@ -19,6 +19,9 @@ public:
     void mostrar_grafo();
     void mostrar_conexiones(QString ciudad);
     void llenarMatriz();
+    void recuperar2(QString ciudad);
+    void dtra(int i, int f);
+    void mat2(Aeropuerto *origen, Aeropuerto *destino);
    // int matri[][];
     Aeropuerto *recuperar(int x, int y);
     Grafo();
