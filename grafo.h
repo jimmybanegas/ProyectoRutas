@@ -2,7 +2,8 @@
 #define GRAFO_H
 #include "aeropuerto.h"
 #include "conexion.h"
-#include <iostream>
+#include <iostream>    
+#include <algorithm>
 using namespace  std;
 
 class Grafo
@@ -19,8 +20,8 @@ public:
     void mostrar_grafo();
     void mostrar_conexiones(QString ciudad);
     void llenarMatriz();
-    void recuperar2(QString ciudad);
-    void dtra(int i, int f);
+    int recuperar2(QString ciudad);
+    void dtra(int origen);
     void mat2(Aeropuerto *origen, Aeropuerto *destino);
    // int matri[][];
     Aeropuerto *recuperar(int x, int y);

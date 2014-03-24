@@ -41,6 +41,7 @@ admin1::admin1(QWidget *parent) :
     leerXml2();
 
     miGrafo->mostrar_grafo();
+  //  ui->lineEdit_3->setValidator(validator);
    // miGrafo->mostrar_conexiones("HONDURAS");
 }
 
@@ -230,7 +231,7 @@ void admin1::on_pushButton_clicked()
 
 void admin1::on_pushButton_3_clicked()
 {
-    if(ui->lineEdit_3->text().toStdString() != "")
+    if(ui->lineEdit_3->text().toStdString() != "" )
     {
         double costo = ui->lineEdit_3->text().toDouble();
 
@@ -266,7 +267,7 @@ void admin1::on_pushButton_3_clicked()
     else
     {
         QMessageBox msgBox;
-        msgBox.setText("Complete los datos para guardar");
+        msgBox.setText("Complete los datos correctamente para guardar");
         msgBox.exec();
     }
 }

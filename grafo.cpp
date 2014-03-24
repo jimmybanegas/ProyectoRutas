@@ -178,13 +178,13 @@ void Grafo::llenarMatriz()
 {
     Aeropuerto *ptr;
     Conexion *ar;
-    double matriz[cont][cont];
+    int matriz[cont][cont];
     for(int x=0;x<cont;x++)
     {
         for(int y=0;y<cont;y++)
         {
             if(x!=y)
-             matriz[x][y]=1;
+             matriz[x][y]=9999;
             else
               matriz[x][y]=0;
         }
@@ -200,7 +200,6 @@ void Grafo::llenarMatriz()
     }
 
     int x = 0;
-
     ptr=p;
     while(ptr!=NULL)
     {
@@ -213,27 +212,69 @@ void Grafo::llenarMatriz()
                 matriz[x][y] = ar->costo;
                 y++;
                 ar=ar->sgte;
-
             }
-
         }
         ptr=ptr->sgte;
-
         x++;
     }
 
-    for(int fila=0; fila<cont; fila++)
+   for(int fila=0; fila<cont; fila++)
     {
         cout<<" "<<endl;
         for(int columna=0; columna<cont; columna++)
         {
-                  cout<<matriz[fila][columna]<<" ";
-
+                  cout<<matriz[fila][columna]<<" "<<fila<<" "<<columna;
         }
     }
 
-}
+    int Aux[cont], VertInc[cont], Ver1, Ver2, Ind1, Ind2, Menor, Band, Origen, DistMin[cont];
+    Origen=1;
 
+    for (Ind1= 0; Ind1 < cont; Ind1++)
+    {
+     Aux[Ind1]= 0;
+     VertInc[Ind1]= 0;
+    }
+
+    Aux[Origen-1] = 1;
+    for (Ind1= 0; Ind1 < cont; Ind1++)
+     DistMin[Ind1]= matriz[Origen][Ind1];
+
+    for (Ind1= 0; Ind1<cont; Ind1++)
+    {
+    Menor= 9999;
+    for (Ind2= 1; Ind2 < cont; Ind2++)
+     if (DistMin[Ind2] < Menor && !Aux[Ind2])
+    {
+        Ver1= Ind2;
+        Menor= DistMin[Ind2];
+    }
+
+    VertInc[Ind1]= Ver1;
+    Aux[Ver1]= 1;
+
+    Ver2= 1;
+    while (Ver2 < cont)
+    {
+    Band=0;
+    Ind2= 1;
+    while (Ind2 < cont && !Band)
+    if (VertInc[Ind2] == Ver2)
+    Band= 1;
+    else
+    Ind2++;
+    if (!Band)
+     DistMin[Ver2]=  std::min(DistMin[Ver2],DistMin[Ver1] + matriz[Ver1][Ver2]);
+     Ver2++;
+    }
+    }
+
+    for (Ind1= 0; Ind1 < cont; Ind1++)
+    {
+       cout<<DistMin[Ind1]<<endl;
+    }
+
+}
 
 Aeropuerto * Grafo::recuperar(int x, int y)
 {
@@ -254,7 +295,7 @@ Aeropuerto * Grafo::recuperar(int x, int y)
     return ptr;
 }
 
-int * Grafo::recuperar2(QString ciudad)
+int Grafo::recuperar2(QString ciudad)
 {
     Aeropuerto *aux;
     aux=p;
@@ -278,56 +319,5 @@ int * Grafo::recuperar2(QString ciudad)
 void Grafo::dtra(int Origen)
 {
 
-    int Aux[cont], VertInc[cont], Ver1, Ver2, Ind1, Ind2, Menor, Band,
-    Origen;
-    /* El arreglo VertInc se utiliza para guardar los vértices elegidos
-    ➥por ser los de la distancia mínima. El arreglo Aux es un arreglo
-    ➥lógico que indica si el nodo de la posición i ya fue incluido en
-    ➥VertInc y de esta manera evitar ciclos. */
-    for (Ind1= 0; Ind1 < cont; Ind1++)
-    {
-     Aux[Ind1]= 0;
-     VertInc[Ind1]= 0;
-    }
-    cout<<"\n\n Ingrese vértice origen: ";
-    cin>>Origen;
-    Aux[Origen – 1]= 1;
-    /* El arreglo donde se guardan las distancias mínimas del Origen a
-    ➥los demás vértices se inicializa con los valores de la matriz de
-    ➥adyacencia. */
-    for (Ind1= 0; Ind1 < cont; Ind1++)
-    DistMin[Ind1]= MatAdy[Origen][Ind1];
-    for (Ind1= 0; Ind1<cont; Ind1++)
-    {
-    /* Se busca el vértice Ver1 en (Vertices - VertInc) tal que
-    ➥DistMin[Ver1] sea el mínimo valor. Se usa el 999 como valor
-    ➥inicial ya que es el elegido para indicar que no existe camino
-    ➥entre dos vértices. */
-    Menor= 999;
-    for (Ind2= 1; Ind2 < cont; Ind2++)
-    if (DistMin[Ind2] < Menor && !Aux[Ind2])
-    {
-    Ver1= Ind2;
-    Menor= DistMin[Ind2];
-    }
-    /* Se incluye Ver1 a VertInc y se actualiza el arreglo Aux. */
-    VertInc[Ind1]= Ver1;
-    Aux[Ver1]= 1;
-    /* Se busca la distancia mínima para cada vértice Ver2 en(Vertices - VertInc). */
-    Ver2= 1;
-    while (Ver2 < cont)
-    {
-    Band=0;
-    Ind2= 1;
-    while (Ind2 < cont && !Band)
-    if (VertInc[Ind2] == Ver2)
-    Band= 1;
-    else
-    Ind2++;
-    if (!Band)
-    DistMin[Ver2]=  Minimo (DistMin[Ver2],DistMin[Ver1] + MatAdy[Ver1][Ver2]);
-    Ver2++;
-    }
-    }
 
 }
