@@ -127,7 +127,7 @@ void Grafo::mostrar_grafo()
 
                 while(ar!=NULL)
                 {
-                  //  cout<<" "<<ar->destino->ciudad.toStdString();
+                    cout<<" "<<ar->destino->ciudad.toStdString();
                     cout<<" "<<ar->costo;
                     ar=ar->sgte;
 
@@ -161,7 +161,7 @@ void Grafo::mostrar_conexiones(QString ciudad)
 
                     while(ar!=NULL)
                     {
-                       // cout<<ar->destino->ciudad.toStdString()<<" "<<ar->costo<<" ";
+                        cout<<ar->destino->ciudad.toStdString()<<" "<<ar->costo<<" ";
                         cout<<ar->costo<<" ";
                         ar=ar->sgte;
                     }
@@ -174,7 +174,7 @@ void Grafo::mostrar_conexiones(QString ciudad)
         }
 }
 
-void Grafo::llenarMatriz()
+int  Grafo::llenarMatriz(int Origen, int destino)
 {
     Aeropuerto *ptr;
     Conexion *ar;
@@ -190,27 +190,19 @@ void Grafo::llenarMatriz()
         }
     }
 
-    for(int fila=0; fila<cont; fila++)
-    {
-        cout<<" "<<endl;
-        for(int columna=0; columna<cont; columna++)
-        {
-         cout<<matriz[fila][columna]<<" ";
-        }
-    }
-
     int x = 0;
     ptr=p;
     while(ptr!=NULL)
     {
-        int y = 0;
+        //int y = 0;
         if(ptr->ady!=NULL)
         {
             ar=ptr->ady;
             while(ar!=NULL)
             {
+                int y = recuperar2(ar->destino->ciudad);
                 matriz[x][y] = ar->costo;
-                y++;
+                //y++;
                 ar=ar->sgte;
             }
         }
@@ -218,17 +210,19 @@ void Grafo::llenarMatriz()
         x++;
     }
 
+   cout<<"LEIDO XML "<<endl;
    for(int fila=0; fila<cont; fila++)
     {
         cout<<" "<<endl;
         for(int columna=0; columna<cont; columna++)
         {
-                  cout<<matriz[fila][columna]<<" "<<fila<<" "<<columna;
+                  cout<<matriz[fila][columna]<<" ";
         }
     }
 
-    int Aux[cont], VertInc[cont], Ver1, Ver2, Ind1, Ind2, Menor, Band, Origen, DistMin[cont];
-    Origen=1;
+    int Aux[cont], VertInc[cont], Ver1, Ver2, Ind1, Ind2, Menor, Band;
+
+    int DistMin[cont];
 
     for (Ind1= 0; Ind1 < cont; Ind1++)
     {
@@ -238,34 +232,39 @@ void Grafo::llenarMatriz()
 
     Aux[Origen-1] = 1;
     for (Ind1= 0; Ind1 < cont; Ind1++)
-     DistMin[Ind1]= matriz[Origen][Ind1];
+     DistMin[Ind1]= matriz[Origen-1][Ind1];
+
+    for (Ind1= 0; Ind1 < cont; Ind1++)
+    {
+       cout<<"\n"<<DistMin[Ind1]<<endl;
+    }
 
     for (Ind1= 0; Ind1<cont; Ind1++)
     {
-    Menor= 9999;
-    for (Ind2= 1; Ind2 < cont; Ind2++)
-     if (DistMin[Ind2] < Menor && !Aux[Ind2])
-    {
-        Ver1= Ind2;
-        Menor= DistMin[Ind2];
-    }
+        Menor= 9999;
+        for (Ind2= 1; Ind2 < cont; Ind2++)
+        if (DistMin[Ind2] < Menor && !Aux[Ind2])
+        {
+            Ver1= Ind2;
+            Menor= DistMin[Ind2];
+        }
 
-    VertInc[Ind1]= Ver1;
-    Aux[Ver1]= 1;
+        VertInc[Ind1]= Ver1;
+        Aux[Ver1]= 1;
 
     Ver2= 1;
     while (Ver2 < cont)
     {
-    Band=0;
-    Ind2= 1;
-    while (Ind2 < cont && !Band)
+        Band=0;
+        Ind2= 1;
+        while (Ind2 < cont && !Band)
     if (VertInc[Ind2] == Ver2)
-    Band= 1;
+        Band= 1;
     else
-    Ind2++;
+        Ind2++;
     if (!Band)
-     DistMin[Ver2]=  std::min(DistMin[Ver2],DistMin[Ver1] + matriz[Ver1][Ver2]);
-     Ver2++;
+        DistMin[Ver2]=  std::min(DistMin[Ver2],DistMin[Ver1] + matriz[Ver1][Ver2]);
+        Ver2++;
     }
     }
 
@@ -273,6 +272,8 @@ void Grafo::llenarMatriz()
     {
        cout<<DistMin[Ind1]<<endl;
     }
+
+    return DistMin[destino];
 
 }
 

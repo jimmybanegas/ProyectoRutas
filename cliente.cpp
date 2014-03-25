@@ -21,7 +21,7 @@ cliente::cliente(QWidget *parent) :
 
     miGrafo.mostrar_grafo();
 
-    miGrafo.llenarMatriz();
+  //  miGrafo.llenarMatriz();
 
    }
 
@@ -89,6 +89,18 @@ void cliente::dibujarPunto(int x, int y)
 
 void cliente::on_pushButton_clicked()
 {
+    int ini= 0;
+    //int *matriz [miGrafo.cont];
+    ini = miGrafo.recuperar2(ui->comboBox->currentText());
+    int dest = miGrafo.recuperar2(ui->comboBox_2->currentText());
+
+    cout<<"inicio "<<ini << " destino"<<dest;
+
+    int precio = miGrafo.llenarMatriz(ini+1,dest);
+
+    ui->mejorPrecio->setText(QString::number(precio));
+
+    cout<<" PROBANDO SI HAY CONEXION "<<precio;
 
 }
 
