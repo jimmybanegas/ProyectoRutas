@@ -263,7 +263,7 @@ int  Grafo::llenarMatriz(int Origen, int destino)
     else
         Ind2++;
     if (!Band)
-        DistMin[Ver2]=  std::min(DistMin[Ver2],DistMin[Ver1] + matriz[Ver1][Ver2]);
+        DistMin[Ver2]= std::min(DistMin[Ver2],DistMin[Ver1] + matriz[Ver1][Ver2]);
         Ver2++;
     }
     }
